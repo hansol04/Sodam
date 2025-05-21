@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity(name="member")
 @EntityListeners(AuditingEntityListener.class)
-@DynamicInsert
 public class MemberDomain {
 	@Id
 	private String id;
@@ -35,9 +34,6 @@ public class MemberDomain {
 	private String birthday;
 	@Column(nullable=false)
 	private String nickname;
-	@Column(nullable=false)
-	@ColumnDefault("1") // 1 : 활성화 0 : 비활성화
-	private Long activate;
 	@CreatedDate
 	private LocalDateTime created_date;
 	@LastModifiedDate

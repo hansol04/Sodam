@@ -20,11 +20,10 @@ import lombok.RequiredArgsConstructor;
 
 
 @RestController
-@RequestMapping("/api/chat")
-@RequiredArgsConstructor
+@RequestMapping("/chat")
 public class ChatController {
-@Autowired
-ChatService chatService;
+	@Autowired
+	ChatService chatService;
 
     @PostMapping("/room")
     public ResponseEntity<ChatRoom> createRoom(@RequestBody ChatRequest.CreateRoom request) {
