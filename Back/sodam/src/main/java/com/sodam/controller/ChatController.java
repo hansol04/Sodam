@@ -1,32 +1,23 @@
 package com.sodam.controller;
 
 import java.util.List;
-
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.sodam.dto.ChatRequest;
 import com.sodam.entity.ChatMessage;
 import com.sodam.entity.ChatRoom;
 import com.sodam.service.ChatService;
 
-import lombok.RequiredArgsConstructor;
-
-
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
-	@Autowired
-	ChatService chatService;
+    @Autowired
+    ChatService chatService;
 
     @PostMapping("/room")
-    public ResponseEntity<ChatRoom> createRoom(@RequestBody ChatRequest.CreateRoom request) {
+    public ResponseEntity<ChatRoom> createRoom(@RequestBody @Valid ChatRequest.CreateRoom request) {
         return ResponseEntity.ok(chatService.createChatRoom(request.getUserAId(), request.getUserBId()));
     }
 
@@ -36,7 +27,7 @@ public class ChatController {
     }
 
     @PostMapping("/message")
-    public ResponseEntity<ChatMessage> sendMessage(@RequestBody ChatRequest.SendMessage request) {
+    public ResponseEntity<ChatMessage> sendMessage(@RequestBody @Valid ChatRequest.SendMessage request) {
         return ResponseEntity.ok(chatService.sendMessage(request.getRoomId(), request.getSenderId(), request.getMessage()));
     }
 
@@ -46,13 +37,13 @@ public class ChatController {
     }
 
     @PostMapping("/block")
-    public ResponseEntity<Void> blockUser(@RequestBody ChatRequest.BlockUser request) {
+    public ResponseEntity<Void> blockUser(@RequestBody @Valid ChatRequest.BlockUser request) {
         chatService.blockUser(request.getBlockerId(), request.getBlockedUserId());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/mute")
-    public ResponseEntity<Void> muteUser(@RequestBody ChatRequest.MuteUser request) {
+    public ResponseEntity<Void> muteUser(@RequestBody @Valid ChatRequest.MuteUser request) {
         chatService.muteUser(request.getMuterId(), request.getMutedUserId());
         return ResponseEntity.ok().build();
     }

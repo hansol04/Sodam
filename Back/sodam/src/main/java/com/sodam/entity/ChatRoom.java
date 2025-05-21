@@ -11,7 +11,6 @@ public class ChatRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long userAId;
     private Long userBId;
 }

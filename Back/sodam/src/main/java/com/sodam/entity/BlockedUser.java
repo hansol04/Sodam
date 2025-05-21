@@ -15,4 +15,10 @@ public class BlockedUser {
 
     private Long blockerId;
     private Long blockedUserId;
+
+  
+    public BlockedUser(Long blockerId, Long blockedUserId) {
+        this.blockerId = blockerId;
+        this.blockedUserId = blockedUserId;
+    }
 }

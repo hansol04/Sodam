@@ -15,4 +15,10 @@ public class MuteList {
 
     private Long muterId;
     private Long mutedUserId;
+
+    
+    public MuteList(Long muterId, Long mutedUserId) {
+        this.muterId = muterId;
+        this.mutedUserId = mutedUserId;
+    }
 }

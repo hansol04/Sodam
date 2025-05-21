@@ -3,8 +3,10 @@ package com.sodam.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sodam.domain.ChatDomain;
 import com.sodam.entity.BlockedUser;
 import com.sodam.entity.ChatMessage;
 import com.sodam.entity.ChatRoom;
@@ -14,15 +16,19 @@ import com.sodam.repository.ChatMessageRepository;
 import com.sodam.repository.ChatRoomRepository;
 import com.sodam.repository.MuteListRepository;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
 public class ChatService {
-	
-    private final ChatRoomRepository chatRoomRepository;
-    private final ChatMessageRepository chatMessageRepository;
-    private final BlockedUserRepository blockedUserRepository;
-    private final MuteListRepository muteListRepository;
+    @Autowired
+    ChatRoomRepository chatRoomRepository;
+
+    @Autowired
+    ChatMessageRepository chatMessageRepository;
+
+    @Autowired
+    BlockedUserRepository blockedUserRepository;
+
+    @Autowired
+    MuteListRepository muteListRepository;
 
     public ChatRoom createChatRoom(Long userAId, Long userBId) {
         ChatRoom room = new ChatRoom();
@@ -36,6 +42,14 @@ public class ChatService {
     }
 
     public ChatMessage sendMessage(Long roomId, Long senderId, String message) {
+        ChatRoom room = chatRoomRepository.findById(roomId)
+            .orElseThrow(() -> new IllegalArgumentException("채팅방이 존재하지 않습니다."));
+        Long receiverId = senderId.equals(room.getUserAId()) ? room.getUserBId() : room.getUserAId();
+
+        if (blockedUserRepository.existsByBlockerIdAndBlockedUserId(receiverId, senderId)) {
+            throw new IllegalStateException("수신자가 보낸 사람을 차단했습니다.");
+        }
+
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setRoomId(roomId);
         chatMessage.setSenderId(senderId);
@@ -49,12 +63,22 @@ public class ChatService {
     }
 
     public void blockUser(Long blockerId, Long blockedUserId) {
-        BlockedUser blockedUser = new BlockedUser(blockerId, blockedUserId);
-        blockedUserRepository.save(blockedUser);
+        if (ChatDomain.isSelfBlock(blockerId, blockedUserId)) {
+            throw new IllegalArgumentException("자기 자신을 차단할 수 없습니다.");
+        }
+        if (!blockedUserRepository.existsByBlockerIdAndBlockedUserId(blockerId, blockedUserId)) {
+            BlockedUser blockedUser = new BlockedUser(blockerId, blockedUserId);
+            blockedUserRepository.save(blockedUser);
+        }
     }
 
     public void muteUser(Long muterId, Long mutedUserId) {
-        MuteList muteList = new MuteList(muterId, mutedUserId);
-        muteListRepository.save(muteList);
+        if (ChatDomain.isSelfMute(muterId, mutedUserId)) {
+            throw new IllegalArgumentException("자기 자신을 음소거할 수 없습니다.");
+        }
+        if (!muteListRepository.existsByMuterIdAndMutedUserId(muterId, mutedUserId)) {
+            MuteList muteList = new MuteList(muterId, mutedUserId);
+            muteListRepository.save(muteList);
+        }
     }
 }
