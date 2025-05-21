@@ -1,0 +1,1 @@
+ /Users/kchn/Documents/GitHub/Sodam/sodamapp/.dart_tool/flutter_build/849ee57c512c036207bc2b53919ec92d/native_assets.json: 

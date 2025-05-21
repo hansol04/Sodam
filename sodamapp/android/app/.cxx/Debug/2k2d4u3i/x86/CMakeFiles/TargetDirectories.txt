@@ -1,0 +1,2 @@
+/Users/kchn/Documents/GitHub/Sodam/sodamapp/android/app/.cxx/Debug/2k2d4u3i/x86/CMakeFiles/edit_cache.dir
+/Users/kchn/Documents/GitHub/Sodam/sodamapp/android/app/.cxx/Debug/2k2d4u3i/x86/CMakeFiles/rebuild_cache.dir
