@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main_page.dart'; // 👉 네가 이동할 메인페이지
+import 'login/auth_choice_page.dart'; // ✅ 경로에 맞게 import 변경
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -13,11 +13,11 @@ class _IntroPageState extends State<IntroPage> {
   void initState() {
     super.initState();
 
-    // 3초 후 자동으로 메인페이지로 이동
-    Future.delayed(Duration(seconds: 3), () {
+    // ✅ 3초 후 AuthChoicePage로 이동
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MainPage()),
+        MaterialPageRoute(builder: (context) => const AuthChoicePage()),
       );
     });
   }
@@ -26,8 +26,8 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Image.asset(
-        'assets/intro.png', // 👉 너가 넣은 사진 경로
-        fit: BoxFit.cover,  // 화면에 꽉 차게
+        'assets/intro.png', // 너가 넣은 인트로 이미지
+        fit: BoxFit.cover,
         width: double.infinity,
         height: double.infinity,
       ),
