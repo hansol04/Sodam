@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/kchn/Documents/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/kchn/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/kchn/Documents/GitHub/Sodam/sodamapp/android/app/.cxx/Debug/2k2d4u3i/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/kchn/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/kchn/Documents/GitHub/Sodam/sodamapp/android/app/.cxx/Debug/2k2d4u3i/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
