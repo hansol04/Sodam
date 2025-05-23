@@ -6,9 +6,9 @@ void main() {
     home: const IntroPage(),
     debugShowCheckedModeBanner: false,
 
-    // ✅ 전역 폰트 적용
+    // 전역 폰트 적용
     theme: ThemeData(
-      fontFamily: 'EBS',
+      fontFamily: 'EBSHunminjeongeum',
     ),
   ));
 }
