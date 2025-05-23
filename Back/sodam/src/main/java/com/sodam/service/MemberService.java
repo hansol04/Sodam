@@ -31,7 +31,7 @@ public class MemberService {
 	}
 
 	public Optional<MemberDomain> delete(String id) {
-		member_repository.deleteById(id);;
+		member_repository.deleteById(id);
 		return member_repository.findById(id);
 	}
 
